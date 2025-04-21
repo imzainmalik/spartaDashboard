@@ -1,0 +1,472 @@
+/* Scroll Bar CSS Start */
+::selection {
+    background: var(--theme-color);
+    color: var(--white);
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(0 0 0 / 0%);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(0 0 0 / 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(0 0 0 / 0.8);
+}
+
+/* Scroll Bar CSS End */
+
+/* Swiper Buttons and Paginations Start*/
+.swiper-button-next,
+.swiper-button-prev {
+    border: 1px solid #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 14px;
+    color: var(--white);
+}
+
+.swiper-pagination-bullet {
+    width: 15px;
+    height: 15px;
+    transition: all 0.3s ease;
+    border-radius: 20px;
+}
+
+.swiper-pagination-bullet-active {
+    width: 25px;
+}
+
+.swiper-slide-shadow-left {
+    display: none;
+}
+
+.swiper-slide-shadow-right {
+    display: none;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--theme-color);
+}
+
+/* Swiper Buttons and Paginations End*/
+
+/* Cursor CSS Start */
+
+.mouse-cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    visibility: hidden;
+}
+
+.cursor-inner {
+    margin-left: 2px;
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
+    z-index: 10000001;
+    background-color: var(--theme-color);
+    -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+        margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    -o-transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+        margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+        margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.cursor-inner:before {
+    content: "Click Me";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 1rem;
+    top: 8px;
+    left: 2px;
+    display: flex;
+    border-radius: 100%;
+    opacity: 0;
+    color: #fff;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    -webkit-transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+        margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    -o-transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+        margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out,
+        margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.cursor-inner.active::before {
+    opacity: 1;
+    top: 0;
+}
+
+.cursor-inner.cursor-hover {
+    margin-left: -10px;
+    margin-top: -10px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--theme-color);
+    opacity: 0.3;
+}
+
+.cursor-inner.cursor-hover.active {
+    margin-left: -40px;
+    margin-top: -40px;
+    width: 120px;
+    height: 120px;
+    opacity: 1;
+    background-color: #53be8470;
+}
+
+/* Cursor CSS End */
+
+/* ThemeBtn CSS Start */
+.themeBtn {
+    background: var(--theme-color);
+    padding: 16px 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--white);
+    display: inline-block;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    text-transform: capitalize;
+    text-align: center;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.themeBtn:before,
+.themeBtn:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    border-radius: 10px;
+    transition: transform 0.4s ease, background-color 0.4s ease;
+}
+
+.themeBtn:before {
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: right center;
+}
+
+.themeBtn:after {
+    background: #000;
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.themeBtn:hover {
+    color: var(--white);
+}
+
+.themeBtn:hover:before {
+    transform: scaleX(1);
+}
+
+.themeBtn:hover:after {
+    transform: scaleX(1);
+}
+
+/* ThemeBtn CSS End */
+
+/* Header CSS Start */
+
+main {
+    padding: 1rem 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.mainBody {
+    background-color: #ffffff;
+    border-radius: 20px;
+    padding: 2rem 2rem;
+    height: 95vh;
+    position: relative;
+    overflow-y: scroll;
+}
+
+.logo {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.panelBox {
+    height: 100vh;
+}
+
+.panelBox nav {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.panelBox nav li a {
+    display: flex;
+    align-items: center;
+    padding: 1.15rem 1.25rem;
+    color: var(--white);
+    position: relative;
+    font-size: 1.125rem;
+    font-weight: 500;
+    justify-content: space-between;
+}
+
+.panelBox nav li a small {
+    width: 40px;
+    /* text-align: center; */
+}
+
+.panelBox nav li a img {
+    margin-right: 0px;
+}
+
+.panelBox nav li a i {
+    margin-left: 10px;
+    position: absolute;
+    right: 10px;
+    top: 24px;
+}
+
+.panelBox nav li .dropdown {
+    padding-left: 1rem;
+}
+
+.panelBox nav li .dropdown li,
+.panelBox nav li .dropdown li a {
+    border-bottom: none;
+}
+
+.panelBox nav li.active a {
+    background: var(--theme-color);
+    border-radius: 15px;
+}
+
+.panelBox nav ul li+li {
+    margin: 5px 0;
+}
+
+.panelBox nav li a span {
+    background: #99B2C6;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100px;
+    font-size: 14px;
+}
+
+.menuText {
+    display: flex;
+    align-items: center;
+}
+
+.bottomMenu {
+    margin-top: 8rem;
+}
+
+.bottomMenu h5 {
+    color: #fff;
+    font-size: 1rem;
+    padding: 0 0 1rem 1.135rem;
+    font-weight: 600;
+}
+
+.topBar {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    justify-content: end;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    border: 2px solid #D9E1E7;
+    padding: 10px 1.25rem;
+    background: white;
+    border-radius: 15px;
+    height: 3.5rem;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 5px;
+}
+
+.filter select {
+    border: 2px solid #e5e5e5;
+    border-radius: 15px;
+    cursor: pointer;
+    background: #f9f9f9;
+    padding: 14px 1rem;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icon {
+    width: 55px;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background: white;
+    border: 2px solid #D9E1E7;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: #809FB8;
+}
+
+.profile {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #0c1e36;
+}
+
+.profile {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    text-align: end;
+}
+
+.profile h3 {
+    text-align: end;
+    line-height: 1;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.profile p {
+    line-height: 1;
+    font-size: 14px;
+    opacity: .6;
+}
+
+.profile .img-box {
+    position: relative;
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile .img-box img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 55px;
+}
+
+/* menu (the right one) */
+
+.menu {
+    position: absolute;
+    top: calc(100% + 24px);
+    right: 16px;
+    width: 200px;
+    min-height: 100px;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    opacity: 0;
+    transform: translateY(-10px);
+    visibility: hidden;
+    transition: 300ms;
+}
+
+.menu::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    right: 14px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.menu.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    z-index: 2;
+}
+
+/* menu links */
+
+.menu ul {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    background: #fff;
+}
+
+.menu ul li {
+    list-style: none;
+}
+
+.menu ul li:hover {
+    background: #eee;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    gap: 6px;
+}
+
+.menu ul li a i {
+    font-size: 1.2em;
+}
+
+.search-box i {
+    color: #99B2C6;
+    font-size: 1.125rem;
+}
+
+.main-header h2 {
+    font-size: 1.75rem;
+}

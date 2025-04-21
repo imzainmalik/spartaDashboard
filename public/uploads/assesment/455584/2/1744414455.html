@@ -1,0 +1,361 @@
+@extends('frontend.layouts.app' . config('theme_layout'))
+@section('title', trans('labels.frontend.home.title') . ' | ' . app_name())
+@section('meta_description', '')
+@section('meta_keywords', '')
+@section('content')
+<style>
+    /* Absolute Center Spinner */
+.loading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+    background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .8));
+
+  background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8));
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.loading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 150ms infinite linear;
+  -moz-animation: spinner 150ms infinite linear;
+  -ms-animation: spinner 150ms infinite linear;
+  -o-animation: spinner 150ms infinite linear;
+  animation: spinner 150ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+box-shadow: rgba(255,255,255, 0.75) 1.5em 0 0 0, rgba(255,255,255, 0.75) 1.1em 1.1em 0 0, rgba(255,255,255, 0.75) 0 1.5em 0 0, rgba(255,255,255, 0.75) -1.1em 1.1em 0 0, rgba(255,255,255, 0.75) -1.5em 0 0 0, rgba(255,255,255, 0.75) -1.1em -1.1em 0 0, rgba(255,255,255, 0.75) 0 -1.5em 0 0, rgba(255,255,255, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+</style>
+<div class="loading" id="loading" style="display: none;">Loading&#8230;</div>
+
+
+    <div class="mainBanner-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                    <div class="banner-inner wow zoomIn">
+                        <div class="banner-content text-center">
+                            <h1 class="text-center-content">CONSULTANTS</h1>
+                            <p class="text-center-content">Having years of experience in their respective fields, our consultants are trained and highly qualified and can be a great source of expert advice.</p>
+                            <div class="apply-btn">
+                                <a href="#"data-toggle="modal" data-target="#exampleModal">Apply</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Consultant  -->
+    @php
+        $pages = App\Models\Page::where('id', 9)->first();
+    @endphp
+
+    <!-- Consultant  -->
+
+    <section class="consultant">
+        <div class="container">
+             {!! $pages->content !!}
+            <div class="row">
+                @foreach ($teachers as $teacher)
+                    <div class="col-md-4 teacher-profile">
+                        <div class="consultant-main">
+                            <div class="consultant-img">
+                                @if($teacher->avatar_location != null)
+                                <img src="{{ asset('LMS/public/avatars') }}/{{ $teacher->avatar_location }}" alt="">
+                                @else
+                                <img src="{{ asset('LMS/public/photos/black-img-lg.jpg') }}" alt="">
+                                @endif
+                            </div>
+                            @if(Auth::check()) 
+                            
+                             @php
+                                $wishlist = App\Models\Wishlist::where('teacher_id',$teacher->id)->where('uid',Auth::user()->id)->first();
+                            @endphp
+                            @if ($wishlist == null)
+                             <div class="consultant-icon" onclick="add_to_wishlist({{ $teacher->id }})">
+                                    <a href="/wishlist_teahcer/{{$teacher->id}}"><i class="fa-solid fa-heart" style="margin-left: 12px;margin-top: 9px;"></i></a>
+                             </div>
+                                @else
+                                <div class="consultant-icon" onclick="add_to_wishlist({{ $teacher->id }})">
+                                    <a href="/remove_wishlist/{{ $wishlist->id }}" style="color: red;margin-left: 12px;margin-top: 9px;"><i class="fa-solid fa-heart"
+                                            style="color: red"></i></a>
+                                            </div>
+                             @endif
+                            @else
+                            <div class="consultant-icon">
+                                <i class="fa-solid fa-heart login-pop"></i>
+                            </div>
+                            @endif
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="add-to-card">
+                                    <div class="heading-star">
+                                        <h2>{{ $teacher->first_name }} {{ $teacher->last_name }}</h2>
+                                        {{-- <div class="star-icon">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div> --}}
+                                    </div>
+                                    <div class="instructor-para">
+                                        <p>{{ substr($teacher->short_intro, 0, 26) }}...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5 ">
+                                <div class="view-profile-btn text-right">
+                                    <a href="/teachers/{{$teacher->id}}/show">VIEW PROFILE</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+                <!--<script>-->
+                <!--    function add_to_wishlist(id) {-->
+                <!--        document.getElementById('loading').style.display = "block";-->
+                <!--        $.ajax({-->
+                <!--            type: 'GET',-->
+                <!--            dataType: 'text',-->
+                <!--            url: '/wishlist_teahcer/' + id + '',-->
+                <!--            data: 'json',-->
+                <!--            cache: false,-->
+
+                <!--            success: function(response) { -->
+                <!--                document.getElementById('fa_heart').style.color = "red";-->
+                <!--                document.getElementById('loading').style.display = "none";-->
+                <!--            },-->
+                <!--        })-->
+
+                <!--    }-->
+                <!--</script>-->
+            </div>
+        </div>
+
+    </section>
+    
+    @if ($sections->reasons->status != 0 || $sections->testimonial->status != 0)
+
+
+        <section class="testimonials">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="study-content text-center">
+                            <h2>Student Testimonials</h2>
+                            <!--<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque-->
+                            <!--    laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi-->
+                            <!--    architecto beatae.</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="testimonial-slider">
+                            @foreach ($testimonials as $item)
+                                <div class="testi-slides">
+                                    <div class="testimonial-box">
+                                        <div class="testimonail-name-quote">
+                                            <h3>{{ $item->name }}.</h3>
+                                            <img src="{{ asset('new_skin/images/legacy/quote.png') }}" alt="">
+                                        </div>
+                                        <div class="testimonial-msg">
+                                            <p>{{ $item->content }}. </p><br>
+                                            <strong>{{ $item->occupation }}</strong>
+                                        </div>
+                                    </div>
+                                    <div class="testi-img-border">
+                                        <div class="testimonail-img">
+                                            <img src="{{ asset('new_skin/images/legacy/testi1.png') }}" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-repeated-rows">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="testimonial-slider-reverse" dir="rtl">
+                                @foreach ($testimonials as $item)
+                                    <div class="testi-slides">
+                                        <div class="testimonial-box">
+                                            <div class="testimonail-name-quote">
+                                                <h3>{{ $item->name }}.</h3>
+                                                <img src="{{ asset('new_skin/images/legacy/quote.png') }}"
+                                                    alt="">
+                                            </div>
+                                            <div class="testimonial-msg">
+                                                <p>{{ $item->content }}.</p><br>
+                                                <strong>{{ $item->occupation }}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="testi-img-border">
+                                            <div class="testimonail-img">
+                                                <img src="{{ asset('new_skin/images/legacy/testi1.png') }}"
+                                                    alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    <section class="study-last">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 wow slideInLeft" style="visibility: visible; animation-name: slideInLeft;">
+                    <div class="about-img">
+                        <img src="{{ asset('LMS/public/storage/uploads/girl.png') }}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6 align-items-center wow slideInRight" style="visibility: visible; animation-name: slideInRight;">
+                    <div class="banner-content">
+                        <h1>OUR SKILLED EXPERTS</h1>
+                        <p>At Legacy AOL you will have a fantastic experience working with one of the finest in the industry. If you’re here searching for expert advice or support in your field, or even if you’re just interested in learning about other industries, our team is here to assist you.</p>
+                        <div class="apply-btn">
+                            <a href="#"data-toggle="modal" data-target="#exampleModal">START TEACHING TODAY</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{-- 
+    <section class="consultant">
+        <div class="container">
+            <div class="row"> 
+                     @foreach ($teachers as $teacher)
+                         <div class="col-6">
+                            <div class="consultant-main">
+                                <div class="consultant-img">
+                                    <img src="{{asset('new_skin/images/inner-images/constructor1.png')}}" alt="">
+                                </div>
+                                <div class="instructor-name">
+                                    <h3>{{$teacher->first_name}} {{$teacher->last_name}}</h3>
+                                </div>
+                                <div class="consultant-icon-2">
+                                    <i class="fa-solid fa-heart"></i>
+                                </div>
+                            </div>
+                        </div> 
+                     @endforeach
+             </div>
+        </div>
+
+    </section> --}}
+    @push('after-scripts')
+    @endpush
+@endsection
