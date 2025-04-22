@@ -1,11 +1,10 @@
 @php
-    $assessmentCounts = App\Models\AssementFillup::select('assement_no', \DB::raw('count(*) as total'))
-    ->groupBy('assement_no')
-    ->count();
+$uniqueCount = App\Models\AssementFillup::distinct('assement_no')->count('assement_no');
+
 @endphp
 <div class="panelBox widgets">
     <div class="logo">
-        <a href="./" title="Company Logo">
+        <a href="{{ route('admin.dashboard') }}" title="Company Logo">
             <img src="{{ asset('assets/images/logo.png') }}" alt="">
         </a>
         <div class="menu-Bar">
@@ -46,11 +45,11 @@
                 </a>
             </li>
             <li>
-                <a href="report-generation.php" title="">
+                <a href="{{ route('admin.report.all_report') }}" title="">
                     <div class="menuText">
                         <small><img src="{{ asset('assets/images/mix/icons/dashboard.png') }}" alt=""></small> Reports
                     </div>
-                    <span>{{ $assessmentCounts }}</span>
+                    <span>{{ $uniqueCount }}</span>
                 </a>
             </li>
             <li>

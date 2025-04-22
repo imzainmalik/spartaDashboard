@@ -24,4 +24,20 @@ class AssementFillup extends Model
     {
         return $this->belongsTo(AssementAnswer::class);
     }
+
+    public function customer(){
+        return $this->hasOne(Customer::class,'id','customer_id');
+    }
+
+    public function assessment_by(){
+        return $this->hasOne( User::class,'id','employee_id');
+    }
+
+    public function assessment_riskscore(){
+        return $this->belongsTo(AssementNotes::class,'assement_no','assement_no');
+    }
+
+    public function assessment_report(){
+        return $this->hasOne(ReportGenrated::class,'assessment_no','assement_no');
+    }
 }

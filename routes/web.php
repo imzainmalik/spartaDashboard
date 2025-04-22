@@ -33,6 +33,10 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('admin/assessment-management/create-assessment', [AssementManagementController::class, 'create'])->name('admin.assessment-management.create');
     Route::post('admin/assessment-management/store', [AssementManagementController::class, 'store'])->name('admin.assessment-management.store');
+
+    Route::get('admin/assessment-management/edit/{assessment_no}', [AssementManagementController::class, 'edit'])->name('admin.assessment-management.edit');
+
+
     Route::get('admin/assessment-management/preview/{assessment_code}', [AssementManagementController::class, 'assessment_preview'])->name('admin.assessment-management.assessment_preview');
     Route::post('admin/send_report/{assessment_no}', [AssementManagementController::class, 'send_report'])->name('send.report');
     Route::get('admin/assessment-management/download_report/{assessment_code}', [AssementManagementController::class, 'donwload_pdf_report'])->name('admin.assessment-management.donwload_pdf_report');
@@ -44,8 +48,10 @@ Route::middleware(['admin'])->group(function () {
     Route::post('admin/assessment-management/update_question/{question_id}', [AssementManagementController::class, 'update_question'])->name('admin.assessment-management.update_question');
     Route::get('admin/assessment-management/delete_question/{type_id}', [AssementManagementController::class, 'delete_question'])->name('admin.assessment-management.setting.delete_question');
 
+    Route::post('admin/assessment-management/update/{assessment_id}', [AssementManagementController::class, 'update'])->name('admin.assessment-management.update');
 
     Route::post('admin/report_setting', [ReportController::class, 'store_report_setting'])->name('admin.report_setting');
+    Route::get('admin/report/all-report', [ReportController::class, 'index'])->name('admin.report.all_report');
 
 });
 

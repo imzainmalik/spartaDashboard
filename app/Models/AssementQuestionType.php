@@ -10,6 +10,6 @@ class AssementQuestionType extends Model
 
     public function questions()
     { 
-        return $this->hasMany(AssementQuestion::class, 'type_id');
+        return $this->hasMany(AssementQuestion::class, 'type_id')->where('is_active', 0);
     }
 }

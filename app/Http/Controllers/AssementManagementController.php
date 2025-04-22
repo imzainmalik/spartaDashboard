@@ -7,6 +7,7 @@ use App\Models\AssementNotes;
 use App\Models\AssementQuestion;
 use App\Models\AssementQuestionType;
 use App\Models\Customer;
+use App\Models\ReportGenrated;
 use App\Models\ReportSetting;
 use Illuminate\Http\Request;
 use App\Mail\AssessmentReport;
@@ -69,7 +70,7 @@ class AssementManagementController extends Controller
                 $assement_notes = new AssementNotes();
                 $assement_notes->assement_no = $assement_no;
                 $assement_notes->question_type_id = $key;
-                $assement_notes->file = $filename ? $filename : null;
+                $assement_notes->file = $path.'/'.$filename ? $filename : null;
                 $assement_notes->scoring = $value;
                 $assement_notes->security_notes = $request->notes[$key];
                 $assement_notes->save();
@@ -83,7 +84,70 @@ class AssementManagementController extends Controller
         ]);
     }
 
+    public function edit(Request $request,$assessment_no){
+        $page_title = 'Start Assesment';
+        $customers = Customer::where('is_active', 0)->get();
+        $questions = AssementQuestion::where('is_active', 0)->where('type_id', 1)->get();
+        $questions2 = AssementQuestion::where('is_active', 0)->where('type_id', 2)->get();
+        $questions3 = AssementQuestion::where('is_active', 0)->where('type_id', 3)->get();
+        $questions4 = AssementQuestion::where('is_active', 0)->where('type_id', 4)->get();
+        $questions5 = AssementQuestion::where('is_active', 0)->where('type_id', 5)->get();
+        $assement_notes = AssementNotes::where('assement_no', $assessment_no)->get();
+        // dd($fillup_answers[5]->id);
+        $fillups = AssementFillup::where('assement_no',$assessment_no)->first();
+        return view('Admin.assesment-management.edit',get_defined_vars());
+    }
 
+    public function update(Request $request, $assessment_no){
+        
+        foreach($request->answer as $key => $updated_answers){
+            // dd($key);
+            AssementFillup::where('assement_no', $assessment_no)->where('question_id',$key)->update(array(
+                'answer_id' => $updated_answers
+            ));
+        }
+        if ($request->scoring) {
+            foreach($request->scoring as $key => $scoring){
+              
+                $filename = null;
+                $full_path = null;
+        
+                if ($request->hasFile("file.$key")) {
+                    $file = $request->file("file.$key");
+                    if ($file) {
+                        $filename = time() . '.' . $file->getClientOriginalExtension();
+                        $path = public_path("uploads/assesment/$assessment_no/$key");  
+                        if (!file_exists($path)) {
+                            mkdir($path, 0777, true);
+                        }   
+                        $file->move($path, $filename);
+                        $full_path = 'uploads/assesment/'.$assessment_no.'/'.$key.'/'.$filename;
+                    }
+                } else {
+                    $assessment_fillup = AssementNotes::where('assement_no', $assessment_no)
+                        ->where('question_type_id', $key)
+                        ->first();
+        
+                    $full_path = $assessment_fillup?->file;  
+                }
+        
+                AssementNotes::where('assement_no', $assessment_no)
+                    ->where('question_type_id', $key)
+                    ->update([
+                        'scoring' => $scoring,
+                        'security_notes' => $request->notes[$key] ?? null,
+                        'file' => $full_path ?? null,
+                    ]);
+
+            }
+        }
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Assessment submitted successfully.',
+            'assement_no' => $assessment_no,
+        ]);
+        
+    } 
 
     public function assessment_preview($assement_no)
     {
@@ -96,7 +160,6 @@ class AssementManagementController extends Controller
                 $q->where('assement_no', $assement_no);
             }
         ])->get();
-
 
         $assement_notes = AssementNotes::where('assement_no', $assement_no)->get();
         // dd();
@@ -134,6 +197,13 @@ class AssementManagementController extends Controller
 
         // Save the PDF in the public folder
         $pdf->save($filePath . '/' . $fileName);
+
+        $ReportGenrated = new ReportGenrated();
+        $ReportGenrated->assessment_no = $assement_no;
+        $ReportGenrated->is_report_generated = 1;
+        $ReportGenrated->report_file = $filePath . '/' . $fileName;
+        $ReportGenrated->save();
+        
 
         // Optional: return the PDF to download
         return response()->download($filePath . '/' . $fileName);
